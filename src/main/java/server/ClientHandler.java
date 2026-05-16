@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *  S→C  <fileName>  (ένα ανά γραμμή)
  *  S→C  LIST_END
  *  C→S  SELECT <fileName> <protocol>     (π.χ.  SELECT Forrest_Gump-480p.mkv UDP)
- *  S→C  READY <port>
+ *  S→C  READY <port> <protocol>
  *  C→S  PLAYING   (client ξεκίνησε player – μόνο για UDP/RTP)
  *  C→S  BYE
  */
@@ -163,14 +163,14 @@ public class ClientHandler implements Runnable {
 
                 case "UDP":
                     // Στέλνουμε READY, περιμένουμε PLAYING, μετά στέλνουμε
-                    send("READY " + streamPort);
+                    send("READY " + streamPort + " UDP");
                     waitForPlaying();
                     ffmpeg.startUdpServer(filePath, clientIp, streamPort);
                     break;
 
                 case "RTP/UDP":
                 case "RTP":
-                    send("READY " + streamPort);
+                    send("READY " + streamPort + " RTP");
                     waitForPlaying();
                     ffmpeg.startRtpServer(filePath, clientIp, streamPort);
                     break;
@@ -200,7 +200,7 @@ public class ClientHandler implements Runnable {
 
         // Μικρή αναμονή ώστε το ffmpeg να ξεκινήσει πριν ο client συνδεθεί
         try { Thread.sleep(500); } catch (InterruptedException ignore) {}
-        send("READY " + port);
+        send("READY " + port + " TCP");
     }
 
     /** Περιμένει μήνυμα PLAYING από τον client (για UDP/RTP). */

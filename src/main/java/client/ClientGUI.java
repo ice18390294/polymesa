@@ -389,18 +389,19 @@ public class ClientGUI extends JFrame {
                     return;
                 }
 
-                // Μορφή: "READY 9100"
+                // Μορφή: "READY 9100 TCP"
                 String[] parts = reply.split(" ");
                 int streamPort = Integer.parseInt(parts[1]);
+                String actualProtocol = parts.length > 2 ? parts[2] : protocol;
 
-                log("Server έτοιμος – θύρα " + streamPort);
+                log("Server έτοιμος – θύρα " + streamPort + " (" + actualProtocol + ")");
 
-                // Εκκίνηση ffplay βάσει protocol
-                if ("TCP".equals(protocol) || "AUTO".equals(protocol)) {
+                // Εκκίνηση ffplay βάσει πραγματικού protocol (από server)
+                if ("TCP".equals(actualProtocol)) {
                     // Μικρή καθυστέρηση ώστε το server να ξεκινήσει σε listen mode
                     Thread.sleep(800);
                     startFfplay("tcp://" + serverHost + ":" + streamPort);
-                } else if ("UDP".equals(protocol)) {
+                } else if ("UDP".equals(actualProtocol)) {
                     // Ξεκινάμε ffplay (ακούει), μετά λέμε PLAYING
                     startFfplay("udp://0.0.0.0:" + streamPort);
                     Thread.sleep(1000);  // Αναμονή ώσπου το ffplay ξεκινήσει

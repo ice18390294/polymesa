@@ -1,0 +1,31 @@
+<configuration>
+
+    <!-- Εκτύπωση στην κονσόλα -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %-5level [%thread] %logger{20} – %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Αποθήκευση σε αρχείο (rolling: νέο αρχείο κάθε μέρα, max 30 αρχεία) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/streaming.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/streaming.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{30} – %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger: INFO level, εκτύπωση και στην κονσόλα και στο αρχείο -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- Μειώνουμε το noise από βιβλιοθήκες -->
+    <logger name="com.github.kokorin.jaffree" level="WARN"/>
+
+</configuration>

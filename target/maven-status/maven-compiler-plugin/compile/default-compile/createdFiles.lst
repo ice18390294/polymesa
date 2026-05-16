@@ -9,6 +9,7 @@ server/ServerGUI.class
 server/Statistics.class
 server/StreamingServer.class
 server/VideoLibrary.class
+ui/AppTheme.class
 client/ClientGUI.class
 client/ClientApp.class
 client/ClientGUI$1.class

@@ -1,5 +1,7 @@
 package server;
 
+import ui.AppTheme;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -94,6 +96,9 @@ public class ServerGUI extends JFrame {
         scanButton  = new JButton("🔍 Σκανάρισμα & Μετατροπή");
         startButton = new JButton("▶ Εκκίνηση Server");
         stopButton  = new JButton("■ Διακοπή Server");
+        AppTheme.applyButtonStyle(scanButton,  AppTheme.PRIMARY);
+        AppTheme.applyButtonStyle(startButton, AppTheme.SUCCESS);
+        AppTheme.applyButtonStyle(stopButton,  AppTheme.DANGER);
         stopButton.setEnabled(false);
         btnPanel.add(scanButton);
         btnPanel.add(startButton);
@@ -106,7 +111,10 @@ public class ServerGUI extends JFrame {
         // ── Κέντρο: log ─────────────────────────────────────────
         logArea = new JTextArea();
         logArea.setEditable(false);
-        logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        logArea.setFont(AppTheme.FONT_MONO);
+        logArea.setBackground(AppTheme.LOG_BG);
+        logArea.setForeground(AppTheme.LOG_FG);
+        logArea.setCaretColor(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(logArea);
         scrollPane.setBorder(new TitledBorder("Καταγραφή (Log)"));
         add(scrollPane, BorderLayout.CENTER);

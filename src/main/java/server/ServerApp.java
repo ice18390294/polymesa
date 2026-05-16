@@ -1,5 +1,7 @@
 package server;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import javax.swing.*;
 
 /**
@@ -9,11 +11,11 @@ import javax.swing.*;
 public class ServerApp {
 
     public static void main(String[] args) {
-        // Χρήση look-and-feel του λειτουργικού συστήματος
+        // Χρήση FlatLaf dark look-and-feel
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            FlatDarkLaf.setup();
         } catch (Exception e) {
-            // Αν αποτύχει, χρησιμοποιούμε το προεπιλεγμένο Java look-and-feel
+            // fallback to default
         }
 
         // Εκκίνηση GUI στο Event Dispatch Thread

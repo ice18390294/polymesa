@@ -2,6 +2,7 @@ package client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ui.AppTheme;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -112,14 +113,17 @@ public class ClientGUI extends JFrame {
         videoListModel = new DefaultListModel<>();
         videoList = new JList<>(videoListModel);
         videoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        videoList.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        videoList.setFont(AppTheme.FONT_MONO);
         centerPanel.add(new JScrollPane(videoList), BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
         // ── Κάτω: log ────────────────────────────────────────────
         logArea = new JTextArea(7, 0);
         logArea.setEditable(false);
-        logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
+        logArea.setFont(AppTheme.FONT_MONO);
+        logArea.setBackground(AppTheme.LOG_BG);
+        logArea.setForeground(AppTheme.LOG_FG);
+        logArea.setCaretColor(Color.WHITE);
         JScrollPane logScroll = new JScrollPane(logArea);
         logScroll.setBorder(new TitledBorder("Log"));
         logScroll.setPreferredSize(new Dimension(0, 160));
@@ -146,6 +150,7 @@ public class ClientGUI extends JFrame {
         panel.add(portField, g);
 
         connectButton = new JButton("Σύνδεση");
+        AppTheme.applyButtonStyle(connectButton, AppTheme.PRIMARY);
         g.gridx = 0; g.gridy = 2; g.gridwidth = 2;
         panel.add(connectButton, g);
 
@@ -169,6 +174,7 @@ public class ClientGUI extends JFrame {
         panel.add(speedLabel, g);
 
         speedTestButton = new JButton("Speed Test (5 sec)");
+        AppTheme.applyButtonStyle(speedTestButton, AppTheme.PRIMARY);
         g.gridx = 0; g.gridy = 1;
         panel.add(speedTestButton, g);
 
@@ -191,6 +197,7 @@ public class ClientGUI extends JFrame {
         panel.add(formatCombo, g);
 
         getListButton = new JButton("Λήψη Λίστας Βίντεο");
+        AppTheme.applyButtonStyle(getListButton, AppTheme.PRIMARY);
         g.gridx = 0; g.gridy = 1; g.gridwidth = 2;
         panel.add(getListButton, g);
 
@@ -228,13 +235,10 @@ public class ClientGUI extends JFrame {
         panel.setBorder(new TitledBorder("5. Streaming"));
 
         streamButton = new JButton("▶  Έναρξη Streaming");
-        streamButton.setBackground(new Color(34, 139, 34));
-        streamButton.setForeground(Color.WHITE);
-        streamButton.setFont(streamButton.getFont().deriveFont(Font.BOLD, 13f));
+        AppTheme.applyButtonStyle(streamButton, AppTheme.SUCCESS);
 
         stopButton = new JButton("■  Διακοπή");
-        stopButton.setBackground(new Color(178, 34, 34));
-        stopButton.setForeground(Color.WHITE);
+        AppTheme.applyButtonStyle(stopButton, AppTheme.DANGER);
 
         panel.add(streamButton);
         panel.add(stopButton);
